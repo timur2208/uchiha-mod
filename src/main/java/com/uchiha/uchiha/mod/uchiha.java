@@ -30,10 +30,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-// Обязательно нужен твой клиентский обработчик!
-import com.uchiha.uchiha.client.UchihaClientEvents;
+// import com.uchiha.uchiha.client.UchihaClientEvents; <- удалить!
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(uchiha.MODID)
 public class uchiha {
     public static final String MODID = "uchiha";
@@ -64,10 +62,10 @@ public class uchiha {
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
-        // --- Регистрация обработчика клиентского рендера HUD ---
-        if (Dist.CLIENT.isClient()) {
-            modEventBus.addListener(com.uchiha.uchiha.client.UchihaClientEvents::onRenderGuiOverlay);
-        }
+        // --- УДАЛИ ЭТО! (оно устарело/больше не нужно) ---
+        // if (Dist.CLIENT.isClient()) {
+        //     modEventBus.addListener(com.uchiha.uchiha.client.UchihaClientEvents::onRenderGuiOverlay);
+        // }
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -85,7 +83,6 @@ public class uchiha {
         }
     }
 
-    // Серверные события @SubscribeEvent (если нужны - Pro Tip: оставь только здесь)
     @net.neoforged.bus.api.SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("HELLO from server starting");
