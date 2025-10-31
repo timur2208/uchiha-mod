@@ -17,6 +17,8 @@ repositories {
         name "neoforgedReleases"
         url "https://maven.neoforged.net/releases"
     }
+    maven { url "https://curios-api.github.io/maven/" }
+    maven { url "https://maven.theillusivec4.top/" }
 }
 
 base {
@@ -58,7 +60,11 @@ configurations {
 }
 
 dependencies {
-    // Добавляй сюда свои моды/библиотеки, если реально нужно
+    // CURIO (слоты под артефакты, глаза и пр.)
+    implementation "top.theillusivec4.curios:curios-forge:1.21.1-5.1.0.0"
+
+    // IRON SPELL (магия, полосы, заклинания)
+    implementation "top.theillusivec4.irons_spellbooks:irons-spellbooks-forge:1.21.1-1.8.1"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
