@@ -12,28 +12,13 @@ description='''Sharingan clan powers and abilities mod for Minecraft'''
 [[dependencies.uchiha]]
 modId="neoforge"
 type="required"
-<<<<<<< HEAD
-versionRange="[21.1.211,)"      # ← новая версия NeoForge (211)
-=======
-versionRange="[21.1.213,)"
->>>>>>> d89f62123467c7ea14a264d0d3e084169823c7e6
+versionRange="[21.1.211,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.uchiha]]
 modId="minecraft"
 type="required"
-<<<<<<< HEAD
-versionRange="
-
-Всё, больше менять ничего не нужно!
-
-- Теперь ограничения версии стоят правильно.
-- Мод будет работать только с NeoForge 21.1.211+ и Minecraft 1.21.1+.
-
-Можешь поставить этот блок в файл и собирать проект. Если будет ошибка или вопросы по другим конфига — дай знать!
-=======
 versionRange="[1.21.1,)"
 ordering="NONE"
 side="BOTH"
->>>>>>> d89f62123467c7ea14a264d0d3e084169823c7e6
