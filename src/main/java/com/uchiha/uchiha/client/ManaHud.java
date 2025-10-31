@@ -3,11 +3,6 @@ package com.uchiha.uchiha.client;
 import com.uchiha.uchiha.magic.MagicData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-package com.uchiha.uchiha.client;
-
-import com.uchiha.uchiha.magic.MagicData;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class ManaHud {
