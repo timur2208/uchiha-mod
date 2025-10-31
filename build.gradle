@@ -55,7 +55,10 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'build/generated/resources'
+    srcDir 'src/generated/resources'
+}
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
