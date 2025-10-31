@@ -23,7 +23,3 @@ public class ManaHud {
         guiGraphics.drawString(mc.font, data.getMana() + " / " + data.getMaxMana(), x + barWidth / 2 - 15, y + barHeight / 2 - 4, 0xFFFFFF, true);
     }
 }
-MagicData testData = new MagicData(100); // 100 — макс мана, текущая = 100
-testData.setMana(50); // текущая = 50
-
-ManaHud.render(..., testData, ...);
