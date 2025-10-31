@@ -17,6 +17,10 @@ repositories {
         name "neoforgedReleases"
         url "https://maven.neoforged.net/releases"
     }
+    maven {
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 base {
@@ -58,7 +62,9 @@ configurations {
 }
 
 dependencies {
-    // Здесь будут только твои будущие библиотеки — сейчас пусто
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    // другие твои зависимости
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
