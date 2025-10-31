@@ -1,10 +1,10 @@
-package com.uchiha.uchiha.mod;
-
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
-public class GatherDataHandler {
+@Mod("uchiha")
+public class UchihaDataGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         event.getGenerator().addProvider(
