@@ -115,3 +115,17 @@ public class uchiha {
         LOGGER.info("HELLO from server starting");
     }
 }
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraftforge.common.data.ExistingFileHelper;
+
+        @net.neoforged.bus.api.SubscribeEvent
+        public static void gatherData(GatherDataEvent event) {
+            event.getGenerator().addProvider(
+                    event.includeServer(),
+                    new UchihaCuriosDataProvider(
+                            event.getGenerator().getPackOutput(),
+                            event.getExistingFileHelper(),
+                            event.getLookupProvider()
+                    )
+            );
+        }
