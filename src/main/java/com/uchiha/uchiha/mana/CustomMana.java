@@ -1,4 +1,4 @@
-package com.uchiha.mana;
+package com.uchiha.uchiha.mana;
 
 public class CustomMana {
     public static int maxMana = 100;
