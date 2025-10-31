@@ -1,6 +1,9 @@
 {
   "addPlayer": true,
-  "slots": {
-    "eye_book": 1
-  }
+  "slots": [
+    {
+      "name": "eye_book",
+      "size": 1
+    }
+  ]
 }
