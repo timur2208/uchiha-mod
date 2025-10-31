@@ -5,10 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
-// Пример пути: "uchiha:textures/gui/mana_bar.png"
 public class ManaHud {
-    private static final ResourceLocation BAR_BG = new ResourceLocation("uchiha", "textures/gui/mana_bar.png");
-    private static final ResourceLocation BAR_FG = new ResourceLocation("uchiha", "textures/gui/mana_bar_fg.png");
+    private static final ResourceLocation BAR_BG = new ResourceLocation("uchiha:textures/gui/mana_bar.png");
+    private static final ResourceLocation BAR_FG = new ResourceLocation("uchiha:textures/gui/mana_bar_fg.png");
 
     public static void render(GuiGraphics guiGraphics, MagicData data, int x, int y) {
         Minecraft mc = Minecraft.getInstance();

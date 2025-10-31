@@ -7,11 +7,10 @@ import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
 
 public class UchihaClientEvents {
 
-    public static void onRenderGuiOverlay(RenderGuiOverlayEvent.Pre event) {
+    public static void onRenderGuiOverlay(RenderGuiOverlayEvent event) {
         Player player = Minecraft.getInstance().player;
         if (player == null) return;
         MagicData magicData = new MagicData(100); // тестовый объект
         ManaHud.render(event.getGuiGraphics(), magicData, 10, 10);
     }
 }
-
