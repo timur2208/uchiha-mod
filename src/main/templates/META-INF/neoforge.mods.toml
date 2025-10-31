@@ -22,3 +22,10 @@ type="required"
 versionRange="[1.21.1,)"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.uchiha]]
+modId="curios"
+type="required"
+versionRange="[1.21.1,)"
+ordering="NONE"
+side="BOTH"
