@@ -1,6 +1,6 @@
-package com.uchiha.client;
+package com.uchiha.uchiha.client;
 
-import com.uchiha.mana.CustomMana;
+import com.uchiha.uchiha.mana.CustomMana;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,3 +27,13 @@ public class HudOverlay {
         int manaColor = 0xFF4040FF;
 
         GuiGraphics gui = event.getGuiGraphics();
+        // Фон
+        gui.fill(x, y, x + barWidth, y + barHeight, 0x70000055);
+        // Прогресс
+        int fill = (int)((double)currentMana / (double)maxMana * barWidth);
+        gui.fill(x, y, x + fill, y + barHeight, manaColor);
+        // Текст
+        mc.font.draw(gui.pose(), currentMana + "/" + maxMana, x + barWidth + 4, y, manaColor);
+    } // <-- Вот тут была ошибка! НЕ хватает вот этой скобки.
+}
+
