@@ -65,7 +65,7 @@ configurations {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:1.21.1-211"
+    implementation "net.neoforged:neoforge:21.1.211"
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     // другие твои зависимости
