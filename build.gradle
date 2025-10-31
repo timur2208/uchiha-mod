@@ -26,7 +26,11 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
+<<<<<<< HEAD
     version = '21.1.211'
+=======
+    version = '21.1.213'
+>>>>>>> d89f62123467c7ea14a264d0d3e084169823c7e6
 
     parchment {
         mappingsVersion = '2024.11.17'
@@ -65,7 +69,11 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
     var replaceProperties = [
             minecraft_version      : '1.21.1',
             minecraft_version_range: '[1.21.1,)',
+<<<<<<< HEAD
             neo_version            : '21.1.211',
+=======
+            neo_version            : '21.1.213',
+>>>>>>> d89f62123467c7ea14a264d0d3e084169823c7e6
             loader_version_range   : '[2.0.0,)',
             mod_id                 : 'uchiha',
             mod_name               : 'Uchiha Clan',
