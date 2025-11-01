@@ -12,11 +12,7 @@ public class ManaTickHandler {
     }
 
     public static void onServerTick(ServerTickEvent.Pre event) {
-        MinecraftServer server = event.getServer();
-        if (server != null) {
-            for (Player player : server.getPlayerList().getPlayers()) {
-                PlayerManaData.regenerateMana(player);
-            }
-        }
+        // ОТКЛЮЧЕНО - восстановление только на клиенте!
+        // Сервер только инициализирует, клиент восстанавливает
     }
 }
