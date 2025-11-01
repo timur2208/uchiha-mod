@@ -1,9 +1,11 @@
 package com.uchiha.uchiha.magic;
 
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
+@Mod.EventBusSubscriber(modid = "uchiha")
 public class ManaTickHandler {
 
     @SubscribeEvent
