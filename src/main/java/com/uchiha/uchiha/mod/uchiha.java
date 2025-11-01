@@ -1,90 +1,76 @@
 package com.uchiha.uchiha.mod;
 
-import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
-
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import org.slf4j.Logger;
+import com.timur208.uchiha.config.Config;
+import com.timur208.uchiha.client.uchihaClient;
+import com.timur208.uchiha.data.MagicEvents;
 
-// import com.uchiha.uchiha.client.UchihaClientEvents; <- удалить!
-
-@Mod(uchiha.MODID)
+/**
+ * Главный класс мода Uchiha
+ * Инициализирует все компоненты и события мода
+ *
+ * Правильная аннотация для NeoForge 1.21.1:
+ * @Mod("modid") - регистрирует мод в системе
+ */
+@Mod("uchiha")
 public class uchiha {
     public static final String MODID = "uchiha";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public uchiha(IEventBus modEventBus) {
+        // Регистрируем конфиг
+        ModLoadingContext.getInstance().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
-    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.uchiha"))
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(EXAMPLE_ITEM.get());
-            }).build());
-
-    public uchiha(IEventBus modEventBus, ModContainer modContainer) {
+        // Добавляем обработчик события общей подготовки
         modEventBus.addListener(this::commonSetup);
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
+
+        // Регистрируем события на FORGE шине (для сервера)
+        NeoForge.EVENT_BUS.register(MagicEvents.class);
         NeoForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-
-        // --- УДАЛИ ЭТО! (оно устарело/больше не нужно) ---
-        // if (Dist.CLIENT.isClient()) {
-        //     modEventBus.addListener(com.uchiha.uchiha.client.UchihaClientEvents::onRenderGuiOverlay);
-        // }
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-        LOGGER.info("HELLO FROM COMMON SETUP");
-        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
+    /**
+     * Общая подготовка мода (вызывается на сервере и клиенте)
+     */
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        LOGGER.info("=== Uchiha Mod: Common Setup ===");
+        // Здесь можно инициализировать общие ресурсы
+    }
+
+    /**
+     * Событие запуска сервера
+     */
+    @SubscribeEvent
+    public static void onServerStarting(ServerStartingEvent event) {
+        LOGGER.info("=== Uchiha Mod: Server Starting ===");
+    }
+
+    /**
+     * Класс для инициализации клиентских событий
+     *
+     * Правильная регистрация для клиента:
+     * - Bus.MOD для событий загрузки
+     * - value = Dist.CLIENT для эксклюзивного доступа на клиенте
+     */
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientEvents {
+
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            LOGGER.info("=== Uchiha Mod: Client Setup ===");
+            // Инициализируем клиентскую часть мода
+            uchihaClient.setup();
         }
-        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
-        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(EXAMPLE_BLOCK_ITEM);
-        }
-    }
-
-    @net.neoforged.bus.api.SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("HELLO from server starting");
     }
 }
