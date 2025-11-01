@@ -19,7 +19,7 @@ public class uchiha {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(HudEventHandler::registerGuiLayers);
-        NeoForge.EVENT_BUS.register(ManaTickHandler.class);
+        NeoForge.EVENT_BUS.register(new ManaTickHandler());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
