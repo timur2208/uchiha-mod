@@ -11,7 +11,7 @@ import com.uchiha.uchiha.magic.PlayerManaData;
 public class ManaCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("mana")
+        dispatcher.register(Commands.literal("uchihamana")
                 .then(Commands.literal("add")
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
                                 .executes(context -> {
