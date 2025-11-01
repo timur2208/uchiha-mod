@@ -17,7 +17,7 @@ public class uchiha {
     public uchiha(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
-        NeoForge.EVENT_BUS.register(new HudEventHandler());
+        NeoForge.EVENT_BUS.register(HudEventHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
