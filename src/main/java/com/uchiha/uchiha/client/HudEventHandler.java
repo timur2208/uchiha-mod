@@ -9,7 +9,6 @@ import com.uchiha.uchiha.magic.PlayerManaData;
 
 public class HudEventHandler {
     private static final ResourceLocation MANA_LAYER_ID = ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
-    private static boolean initialized = false;
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
@@ -17,23 +16,17 @@ public class HudEventHandler {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.level == null || minecraft.player == null) return;
 
-            // Гарантированная инициализация при первом отображении
-            if (!initialized) {
-                PlayerManaData.initializePlayer(minecraft.player);
-                initialized = true;
-            }
+            // Получаем ману напрямую из NBT (синхронизированные данные с сервера)
+            float currentMana = minecraft.player.getPersistentData().getFloat("Uchiha_Mana");
+            float maxMana = minecraft.player.getPersistentData().getFloat("Uchiha_MaxMana");
 
-            float currentMana = PlayerManaData.getCurrentMana(minecraft.player);
-            float maxMana = PlayerManaData.getMaxMana(minecraft.player);
-
-            // Если ещё 0 - инициализируем
-            if (currentMana == 0) {
-                currentMana = 100f;
-                PlayerManaData.setCurrentMana(minecraft.player, currentMana);
-            }
+            // Если 0 - инициализируем
             if (maxMana == 0) {
                 maxMana = 200f;
-                PlayerManaData.setMaxMana(minecraft.player, maxMana);
+                minecraft.player.getPersistentData().putFloat("Uchiha_MaxMana", maxMana);
+            }
+            if (currentMana == 0 && maxMana > 0) {
+                currentMana = 0f;
             }
 
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
