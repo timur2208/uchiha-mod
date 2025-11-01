@@ -10,6 +10,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 @Mod.EventBusSubscriber(modid = "uchiha")
 public class MagicEvents {
     public static AttachmentType<MagicData> MAGIC_DATA_ATTACHMENTS;
+
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
@@ -21,9 +22,10 @@ public class MagicEvents {
             }
         }
     }
+
     @SubscribeEvent
-    public static void onServerTick(ServerTickEvent event) {
-        if (event.getServer() != null && event.phase == ServerTickEvent.Phase.END) {
+    public static void onServerTick(ServerTickEvent.Pre event) {
+        if (event.getServer() != null) {
             event.getServer().getPlayerList().getPlayers().forEach(player -> {
                 MagicData magicData = MagicData.get(player);
                 if (magicData != null) magicData.tick();

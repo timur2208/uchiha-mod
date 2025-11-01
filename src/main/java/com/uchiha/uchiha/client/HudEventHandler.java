@@ -12,8 +12,7 @@ import com.uchiha.uchiha.magic.MagicData;
 
 @Mod.EventBusSubscriber(modid = "uchiha", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class HudEventHandler {
-    private static final ResourceLocation MANA_LAYER_ID =
-            ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
+    private static final ResourceLocation MANA_LAYER_ID = ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
