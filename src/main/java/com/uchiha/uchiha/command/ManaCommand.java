@@ -6,7 +6,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import com.uchiha.uchiha.magic.PlayerManaData;
 
 public class ManaCommand {
 
@@ -16,19 +15,18 @@ public class ManaCommand {
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
                                 .executes(context -> {
                                     float amount = FloatArgumentType.getFloat(context, "amount");
-                                    CommandSourceStack source = context.getSource();
-                                    Player player = source.getPlayerOrException();
+                                    Player player = context.getSource().getPlayerOrException();
 
-                                    float current = PlayerManaData.getCurrentMana(player);
-                                    float newMana = Math.min(current + amount, PlayerManaData.getMaxMana(player));
-                                    PlayerManaData.setCurrentMana(player, newMana);
+                                    float current = player.getPersistentData().getFloat("Uchiha_Mana");
+                                    float max = player.getPersistentData().getFloat("Uchiha_MaxMana");
+                                    if (max == 0) max = 200f;
 
-                                    // Синхронизируем данные с клиентом
+                                    float newMana = Math.min(current + amount, max);
                                     player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                     player.displayClientMessage(
-                                            Component.literal("§b✦ Мана добавлена: +" + String.format("%.0f", amount) +
-                                                    " | Текущая: " + String.format("%.0f", newMana)),
+                                            Component.literal("§b✦ Мана добавлена: +§a" + String.format("%.0f", amount) +
+                                                    "§b | Текущая: §a" + String.format("%.0f", newMana) + "§b/§a" + String.format("%.0f", max)),
                                             false
                                     );
                                     return 1;
@@ -39,23 +37,22 @@ public class ManaCommand {
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
                                 .executes(context -> {
                                     float amount = FloatArgumentType.getFloat(context, "amount");
-                                    CommandSourceStack source = context.getSource();
-                                    Player player = source.getPlayerOrException();
+                                    Player player = context.getSource().getPlayerOrException();
 
-                                    if (PlayerManaData.spendMana(player, amount)) {
-                                        float current = PlayerManaData.getCurrentMana(player);
+                                    float current = player.getPersistentData().getFloat("Uchiha_Mana");
 
-                                        // Синхронизируем данные с клиентом
-                                        player.getPersistentData().putFloat("Uchiha_Mana", current);
+                                    if (current >= amount) {
+                                        float newMana = current - amount;
+                                        player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                         player.displayClientMessage(
-                                                Component.literal("§b✦ Мана потрачена: -" + String.format("%.0f", amount) +
-                                                        " | Осталось: " + String.format("%.0f", current)),
+                                                Component.literal("§b✦ Мана потрачена: §c-" + String.format("%.0f", amount) +
+                                                        "§b | Осталось: §a" + String.format("%.0f", newMana)),
                                                 false
                                         );
                                     } else {
                                         player.displayClientMessage(
-                                                Component.literal("§c✗ Недостаточно маны!"),
+                                                Component.literal("§c✗ Недостаточно маны! (Есть: " + String.format("%.0f", current) + ")"),
                                                 false
                                         );
                                     }
@@ -67,16 +64,15 @@ public class ManaCommand {
                         .then(Commands.argument("amount", FloatArgumentType.floatArg())
                                 .executes(context -> {
                                     float amount = FloatArgumentType.getFloat(context, "amount");
-                                    CommandSourceStack source = context.getSource();
-                                    Player player = source.getPlayerOrException();
+                                    Player player = context.getSource().getPlayerOrException();
+                                    float max = player.getPersistentData().getFloat("Uchiha_MaxMana");
+                                    if (max == 0) max = 200f;
 
-                                    PlayerManaData.setCurrentMana(player, amount);
-
-                                    // Синхронизируем данные с клиентом
-                                    player.getPersistentData().putFloat("Uchiha_Mana", amount);
+                                    float newMana = Math.min(Math.max(amount, 0), max);
+                                    player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                     player.displayClientMessage(
-                                            Component.literal("§b✦ Мана установлена на: " + String.format("%.0f", amount)),
+                                            Component.literal("§b✦ Мана установлена на: §a" + String.format("%.0f", newMana)),
                                             false
                                     );
                                     return 1;
@@ -85,15 +81,15 @@ public class ManaCommand {
                 )
                 .then(Commands.literal("info")
                         .executes(context -> {
-                            CommandSourceStack source = context.getSource();
-                            Player player = source.getPlayerOrException();
-                            float current = PlayerManaData.getCurrentMana(player);
-                            float max = PlayerManaData.getMaxMana(player);
+                            Player player = context.getSource().getPlayerOrException();
+                            float current = player.getPersistentData().getFloat("Uchiha_Mana");
+                            float max = player.getPersistentData().getFloat("Uchiha_MaxMana");
+                            if (max == 0) max = 200f;
                             float percent = (current / max) * 100;
 
                             player.displayClientMessage(
-                                    Component.literal("§b✦ Мана: " + String.format("%.0f", current) + " / " +
-                                            String.format("%.0f", max) + " (§6" + String.format("%.0f", percent) + "%§b)"),
+                                    Component.literal("§b✦ Мана: §a" + String.format("%.0f", current) + "§b/§a" +
+                                            String.format("%.0f", max) + " §b(§6" + String.format("%.0f", percent) + "%§b)"),
                                     false
                             );
                             return 1;
