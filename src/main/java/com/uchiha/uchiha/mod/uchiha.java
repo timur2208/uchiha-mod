@@ -7,11 +7,13 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.HudEventHandler;
 import com.uchiha.uchiha.client.ClientTickHandler;
+import com.uchiha.uchiha.command.ManaCommand;
 import com.uchiha.uchiha.magic.ManaTickHandler;
 
 @Mod("uchiha")
@@ -31,6 +33,11 @@ public class uchiha {
 
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Pre event) -> {
             ManaTickHandler.onServerTick(event);
+        });
+
+        // Регистрация команд
+        NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
+            ManaCommand.register(event.getDispatcher());
         });
 
         // Клиентские события

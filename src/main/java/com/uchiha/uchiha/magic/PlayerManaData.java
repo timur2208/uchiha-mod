@@ -6,8 +6,8 @@ public class PlayerManaData {
     private static final String MANA_KEY = "Uchiha_Mana";
     private static final String MAX_MANA_KEY = "Uchiha_MaxMana";
     private static final float DEFAULT_MAX_MANA = 200f;
-    private static final float DEFAULT_CURRENT_MANA = 100f;
-    private static final float MANA_REGEN_PER_TICK = 0.5f;  // Нормальная скорость
+    private static final float DEFAULT_CURRENT_MANA = 0f;  // ✅ БЫЛО 100, ТЕПЕРЬ 0!
+    private static final float MANA_REGEN_PER_TICK = 0.25f;  // ✅ БЫЛО 0.5, ТЕПЕРЬ 0.25 (в 2 раза медленнее)
 
     public static float getCurrentMana(Player player) {
         return player.getPersistentData().getFloat(MANA_KEY);
@@ -43,10 +43,9 @@ public class PlayerManaData {
     }
 
     public static void initializePlayer(Player player) {
-        if (getCurrentMana(player) == 0 && getMaxMana(player) == 0) {
-            setCurrentMana(player, DEFAULT_CURRENT_MANA);
-            setMaxMana(player, DEFAULT_MAX_MANA);
-        }
+        // Всегда инициализируем с 0 маны при входе
+        setCurrentMana(player, DEFAULT_CURRENT_MANA);
+        setMaxMana(player, DEFAULT_MAX_MANA);
     }
 
     public static void regenerateMana(Player player) {
