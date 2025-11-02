@@ -14,6 +14,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.ClientTickHandler;
+import com.uchiha.uchiha.client.HudEventHandler;
 import com.uchiha.uchiha.magic.ManaTickHandler;
 import com.uchiha.uchiha.magic.PlayerManaData;
 
@@ -25,6 +26,9 @@ public class uchiha {
     public uchiha(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
+
+        // Регистрируем HUD
+        NeoForge.EVENT_BUS.register(new HudEventHandler());
 
         // КОМАНДА
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
