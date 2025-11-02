@@ -1,5 +1,5 @@
 plugins {
-    id("net.neoforged.gradle.userdev") version "7.0.105"
+    id("net.neoforged.gradle.userdev") version "7.0.57"
 }
 
 group = "com.uchiha"
