@@ -1,30 +1,28 @@
 plugins {
-    id("net.neoforged.gradle.userdev") version "7.0.57"
-    id("eclipse")
+    id "net.neoforged.gradle.userdev" version "7.0.105"
 }
 
-version = "1.0.0"
 group = "com.uchiha"
+version = "1.0.0"
 base.archivesName.set("uchiha-mod")
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
-    maven {
-        name = "NeoForged"
-        url = uri("https://maven.neoforged.net/releases/")
-    }
+    maven { url = uri("https://maven.neoforged.net/releases/") }
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:21.1.211"
 }
 
-tasks.withType(JavaCompile::class).configureEach {
-    options.encoding = "UTF-8"
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+tasks.named('jar', Jar) {
+    from("LICENSE") {
+        rename { "${it}_${base.archivesName.get()}" }
     }
 }
