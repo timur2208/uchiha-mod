@@ -16,18 +16,12 @@ public class HudEventHandler {
             Minecraft minecraft = Minecraft.getInstance();
             if (minecraft.level == null || minecraft.player == null) return;
 
-            // Получаем ману напрямую из NBT (синхронизированные данные с сервера)
-            float currentMana = minecraft.player.getPersistentData().getFloat("Uchiha_Mana");
-            float maxMana = minecraft.player.getPersistentData().getFloat("Uchiha_MaxMana");
+            // Инициализируем при первом отображении
+            PlayerManaData.initializePlayer(minecraft.player);
 
-            // Если 0 - инициализируем
-            if (maxMana == 0) {
-                maxMana = 200f;
-                minecraft.player.getPersistentData().putFloat("Uchiha_MaxMana", maxMana);
-            }
-            if (currentMana == 0 && maxMana > 0) {
-                currentMana = 0f;
-            }
+            // ОДНА переменная маны
+            float currentMana = PlayerManaData.getCurrentMana(minecraft.player);
+            float maxMana = PlayerManaData.getMaxMana(minecraft.player);
 
             int screenHeight = minecraft.getWindow().getGuiScaledHeight();
             int x = 10, y = screenHeight - 39, width = 81, height = 9;
@@ -35,38 +29,27 @@ public class HudEventHandler {
             float manaRatio = Math.max(0, Math.min(1, currentMana / maxMana));
             int filledWidth = (int) (width * manaRatio);
 
-            // Рамка (чёрная)
+            // Рамка
             guiGraphics.fill(x - 1, y - 1, x + width + 1, y + height + 1, 0xFF000000);
-
-            // Фон (тёмно-серый)
+            // Фон
             guiGraphics.fill(x, y, x + width, y + height, 0xFF1a1a1a);
 
-            // Цвет в зависимости от % маны
+            // Цвет маны
             int fillColor;
-            if (manaRatio > 0.7f) {
-                fillColor = 0xFF0099FF;  // Светлый синий
-            } else if (manaRatio > 0.4f) {
-                fillColor = 0xFF0066FF;  // Средний синий
-            } else if (manaRatio > 0.2f) {
-                fillColor = 0xFF0044AA;  // Тёмный синий
-            } else if (manaRatio > 0f) {
-                fillColor = 0xFF6600FF;  // Фиолетовый
-            } else {
-                fillColor = 0xFF330033;  // Очень тёмный
-            }
+            if (manaRatio > 0.7f) fillColor = 0xFF0099FF;
+            else if (manaRatio > 0.4f) fillColor = 0xFF0066FF;
+            else if (manaRatio > 0.2f) fillColor = 0xFF0044AA;
+            else if (manaRatio > 0f) fillColor = 0xFF6600FF;
+            else fillColor = 0xFF330033;
 
             // Заполнение
             if (filledWidth > 0) {
                 guiGraphics.fill(x, y, x + filledWidth, y + height, fillColor);
-                // Блик
                 guiGraphics.fill(x, y, x + filledWidth, y + 1, 0xFF33CCFF);
             }
 
             // Текст
-            String manaText = String.format("Mana: %.0f / %.0f", currentMana, maxMana);
-            guiGraphics.drawString(minecraft.font, manaText, x, y - 10, 0x33CCFF);
-
-            // Процент
+            guiGraphics.drawString(minecraft.font, String.format("Mana: %.0f/%.0f", currentMana, maxMana), x, y - 10, 0x33CCFF);
             String percentText = String.format("%.0f%%", manaRatio * 100);
             int percentX = x + width - minecraft.font.width(percentText) - 2;
             guiGraphics.drawString(minecraft.font, percentText, percentX, y + 1, 0xFFFFFF);
