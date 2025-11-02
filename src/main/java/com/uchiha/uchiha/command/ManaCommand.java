@@ -20,7 +20,7 @@ public class ManaCommand {
                                     float current = PlayerManaData.getCurrentMana(player);
                                     PlayerManaData.setCurrentMana(player, current + amount);
                                     float newMana = PlayerManaData.getCurrentMana(player);
-                                    player.displayClientMessage(Component.literal("§a+§b" + amount + " Mana → §a" + newMana), false);
+                                    player.displayClientMessage(Component.literal("§a✦ +§b" + String.format("%.0f", amount) + " §bMana → §a" + String.format("%.0f", newMana)), false);
                                     return 1;
                                 })
                         )
@@ -34,9 +34,9 @@ public class ManaCommand {
                                     if (current >= amount) {
                                         PlayerManaData.setCurrentMana(player, current - amount);
                                         float newMana = PlayerManaData.getCurrentMana(player);
-                                        player.displayClientMessage(Component.literal("§c-§b" + amount + " Mana → §a" + newMana), false);
+                                        player.displayClientMessage(Component.literal("§c✦ -§b" + String.format("%.0f", amount) + " §bMana → §a" + String.format("%.0f", newMana)), false);
                                     } else {
-                                        player.displayClientMessage(Component.literal("§cНет маны!"), false);
+                                        player.displayClientMessage(Component.literal("§c✗ Недостаточно маны!"), false);
                                     }
                                     return 1;
                                 })
@@ -49,7 +49,7 @@ public class ManaCommand {
                                     Player player = context.getSource().getPlayerOrException();
                                     PlayerManaData.setCurrentMana(player, amount);
                                     float newMana = PlayerManaData.getCurrentMana(player);
-                                    player.displayClientMessage(Component.literal("§bMana = §a" + newMana), false);
+                                    player.displayClientMessage(Component.literal("§b✦ Мана = §a" + String.format("%.0f", newMana)), false);
                                     return 1;
                                 })
                         )
@@ -59,7 +59,7 @@ public class ManaCommand {
                             Player player = context.getSource().getPlayerOrException();
                             float current = PlayerManaData.getCurrentMana(player);
                             float max = PlayerManaData.getMaxMana(player);
-                            player.displayClientMessage(Component.literal("§bMana: §a" + current + "§8/§a" + max), false);
+                            player.displayClientMessage(Component.literal("§b✦ Мана: §a" + String.format("%.0f", current) + "§8/§a" + String.format("%.0f", max)), false);
                             return 1;
                         })
                 )

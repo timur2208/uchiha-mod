@@ -7,11 +7,12 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.HudEventHandler;
 import com.uchiha.uchiha.client.ClientTickHandler;
-import com.uchiha.uchiha.client.ClientChatHandler;
+import com.uchiha.uchiha.command.ManaCommand;
 import com.uchiha.uchiha.magic.ManaTickHandler;
 
 @Mod("uchiha")
@@ -24,6 +25,11 @@ public class uchiha {
         modEventBus.addListener(this::clientSetup);
         modEventBus.addListener(HudEventHandler::registerGuiLayers);
 
+        // Регистрация команды
+        NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
+            ManaCommand.register(event.getDispatcher());
+        });
+
         // Только инициализация при входе
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> {
             ManaTickHandler.onPlayerLoggedIn(event);
@@ -33,9 +39,6 @@ public class uchiha {
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> {
             ClientTickHandler.onClientTick(event);
         });
-
-        // Регистрируем ШЕМ (статичный класс)
-        NeoForge.EVENT_BUS.register(ClientChatHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
