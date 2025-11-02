@@ -11,7 +11,7 @@ public class HudEventHandler {
     private static final ResourceLocation LAYER_ID = ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
 
     @SubscribeEvent
-    public void registerLayers(RegisterGuiLayersEvent event) {
+    public static void registerLayers(RegisterGuiLayersEvent event) {
         event.registerAboveAll(LAYER_ID, (gui, tick) -> {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) return;
