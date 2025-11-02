@@ -17,6 +17,7 @@ public class ManaCommand {
                                     float amount = FloatArgumentType.getFloat(context, "amount");
                                     Player player = context.getSource().getPlayerOrException();
 
+                                    // Читаем ОТ КЛИЕНТА (правильные данные)
                                     float current = player.getPersistentData().getFloat("Uchiha_Mana");
                                     float max = player.getPersistentData().getFloat("Uchiha_MaxMana");
                                     if (max == 0) max = 200f;
@@ -25,8 +26,8 @@ public class ManaCommand {
                                     player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                     player.displayClientMessage(
-                                            Component.literal("§b✦ Мана добавлена: +§a" + String.format("%.0f", amount) +
-                                                    "§b | Текущая: §a" + String.format("%.0f", newMana) + "§b/§a" + String.format("%.0f", max)),
+                                            Component.literal("§b✦ +§a" + String.format("%.0f", amount) + " §bМаны → §a" +
+                                                    String.format("%.0f", newMana)),
                                             false
                                     );
                                     return 1;
@@ -46,13 +47,13 @@ public class ManaCommand {
                                         player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                         player.displayClientMessage(
-                                                Component.literal("§b✦ Мана потрачена: §c-" + String.format("%.0f", amount) +
-                                                        "§b | Осталось: §a" + String.format("%.0f", newMana)),
+                                                Component.literal("§b✦ -§c" + String.format("%.0f", amount) + " §bМаны → §a" +
+                                                        String.format("%.0f", newMana)),
                                                 false
                                         );
                                     } else {
                                         player.displayClientMessage(
-                                                Component.literal("§c✗ Недостаточно маны! (Есть: " + String.format("%.0f", current) + ")"),
+                                                Component.literal("§c✗ Недостаточно! (Есть: " + String.format("%.0f", current) + ")"),
                                                 false
                                         );
                                     }
@@ -72,7 +73,7 @@ public class ManaCommand {
                                     player.getPersistentData().putFloat("Uchiha_Mana", newMana);
 
                                     player.displayClientMessage(
-                                            Component.literal("§b✦ Мана установлена на: §a" + String.format("%.0f", newMana)),
+                                            Component.literal("§b✦ Мана = §a" + String.format("%.0f", newMana)),
                                             false
                                     );
                                     return 1;
@@ -88,8 +89,8 @@ public class ManaCommand {
                             float percent = (current / max) * 100;
 
                             player.displayClientMessage(
-                                    Component.literal("§b✦ Мана: §a" + String.format("%.0f", current) + "§b/§a" +
-                                            String.format("%.0f", max) + " §b(§6" + String.format("%.0f", percent) + "%§b)"),
+                                    Component.literal("§b✦ Мана: §a" + String.format("%.0f", current) + "§8/§a" +
+                                            String.format("%.0f", max) + " §8(§6" + String.format("%.0f", percent) + "%§8)"),
                                     false
                             );
                             return 1;
