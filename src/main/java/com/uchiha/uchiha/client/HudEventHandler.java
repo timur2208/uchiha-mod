@@ -3,10 +3,13 @@ package com.uchiha.uchiha.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import com.uchiha.uchiha.magic.PlayerManaData;
 
+@Mod.EventBusSubscriber(modid = "uchiha", value = Dist.CLIENT)
 public class HudEventHandler {
     private static final ResourceLocation LAYER_ID = ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
 
