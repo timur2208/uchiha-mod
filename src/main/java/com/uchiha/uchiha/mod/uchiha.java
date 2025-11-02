@@ -27,7 +27,7 @@ public class uchiha {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
-        // HUD регистрируем на MOD BUS (RegisterGuiLayersEvent - mod bus event!)
+        // HUD регистрируем на MOD BUS! (RegisterGuiLayersEvent = mod bus event)
         modEventBus.register(HudEventHandler.class);
 
         // КОМАНДА на NEOFORGE BUS
