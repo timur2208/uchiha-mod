@@ -3,18 +3,13 @@ package com.uchiha.uchiha.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import com.uchiha.uchiha.mana.ManaAttachment;
 
-@Mod.EventBusSubscriber(modid = "uchiha", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ManaHudRenderer {
     private static final ResourceLocation MANA_BAR = ResourceLocation.fromNamespaceAndPath("uchiha", "mana_bar");
 
-    @SubscribeEvent
-    public static void registerLayers(RegisterGuiLayersEvent event) {
+    public static void register(RegisterGuiLayersEvent event) {
         event.registerAboveAll(MANA_BAR, (gui, partialTick) -> renderManaBar(gui));
     }
 
