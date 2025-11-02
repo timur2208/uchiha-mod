@@ -1,0 +1,26 @@
+modLoader="neoforgedsl"
+loaderVersion="[21,)"
+license="MIT"
+
+[[mods]]
+modId="uchiha"
+version="${file.jarVersion}"
+displayName="Uchiha Eye System"
+logoFile="assets/uchiha/logo.png"
+credits="Created for Minecraft Sharingan enthusiasts"
+authors="Developer"
+description="A comprehensive Sharingan/Uchiha eye system mod for Minecraft with progression, abilities, and PvP mechanics."
+
+[[dependencies.uchiha]]
+    modId="neoforge"
+    mandatory=true
+    versionRange="[21,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.uchiha]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.21.1,1.22)"
+    ordering="NONE"
+    side="BOTH"

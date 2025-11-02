@@ -1,0 +1,20 @@
+{
+  "commands.uchiha.becomeuchiha.success": "§cYou are now an Uchiha! Use /sharingan <level> to activate your eye.",
+  "commands.uchiha.sharingan.not_uchiha": "§cYou must become an Uchiha first! Use /becomeuchiha",
+  "commands.uchiha.sharingan.level": "§cSharingan: %s §cactivated!",
+  
+  "sharingan.level.deactivated": "Deactivated",
+  "sharingan.level.1tomoe": "1-Tomoe Sharingan",
+  "sharingan.level.2tomoe": "2-Tomoe Sharingan",
+  "sharingan.level.3tomoe": "3-Tomoe Sharingan",
+  "sharingan.level.mangekyo": "Mangekyo Sharingan",
+  
+  "ability.genjutsu": "Genjutsu",
+  "ability.clone": "Clone Creation",
+  "ability.kamui": "Kamui",
+  "ability.amaterasu": "Amaterasu",
+  "ability.tsukuyomi": "Tsukuyomi",
+  
+  "effect.uchiha.genjutsu": "Genjutsu",
+  "effect.uchiha.amaterasu_burn": "Amaterasu Burn"
+}
