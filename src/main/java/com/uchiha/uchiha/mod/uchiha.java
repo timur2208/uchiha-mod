@@ -1,18 +1,16 @@
 package com.uchiha.uchiha.mod;
 
 import com.mojang.logging.LogUtils;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.ManaHudRenderer;
 import com.uchiha.uchiha.command.ManaCommands;
 import com.uchiha.uchiha.mana.ManaAttachment;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 
 @Mod("uchiha")
 public class uchiha {

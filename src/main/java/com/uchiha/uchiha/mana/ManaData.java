@@ -1,10 +1,6 @@
 package com.uchiha.uchiha.mana;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-
-public class ManaData implements INBTSerializable<CompoundTag> {
+public class ManaData {
     private float mana;
     private float maxMana;
 
@@ -39,19 +35,5 @@ public class ManaData implements INBTSerializable<CompoundTag> {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        tag.putFloat("mana", mana);
-        tag.putFloat("maxMana", maxMana);
-        return tag;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        mana = nbt.getFloat("mana");
-        maxMana = nbt.getFloat("maxMana");
     }
 }
