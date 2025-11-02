@@ -12,11 +12,14 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.ClientTickHandler;
 import com.uchiha.uchiha.client.HudEventHandler;
 import com.uchiha.uchiha.magic.ManaTickHandler;
 import com.uchiha.uchiha.magic.PlayerManaData;
+import com.uchiha.uchiha.network.ManaUpdatePacket;
 
 @Mod("uchiha")
 public class uchiha {
@@ -26,8 +29,9 @@ public class uchiha {
     public uchiha(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::registerPayloads);
 
-        // HUD регистрируем на MOD BUS! (RegisterGuiLayersEvent = mod bus event)
+        // HUD регистрируем на MOD BUS
         modEventBus.register(HudEventHandler.class);
 
         // КОМАНДА на NEOFORGE BUS
@@ -95,5 +99,10 @@ public class uchiha {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Uchiha Mod: Client Setup!");
+    }
+
+    private void registerPayloads(final RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar("1");
+        registrar.playToClient(ManaUpdatePacket.ID, ManaUpdatePacket.CODEC, ManaUpdatePacket::handle);
     }
 }
