@@ -18,8 +18,8 @@ public class uchiha {
     public uchiha(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
 
-        // Регистрируем аттачмент
-        modEventBus.register(ManaAttachment.class);
+        // Регистрируем аттачменты
+        modEventBus.register(ManaAttachment.ATTACHMENT_TYPES);
 
         // Регистрируем команду
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
