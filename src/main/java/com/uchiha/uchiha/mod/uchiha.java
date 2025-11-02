@@ -34,8 +34,8 @@ public class uchiha {
             ClientTickHandler.onClientTick(event);
         });
 
-        // Обработчик чата для команд
-        NeoForge.EVENT_BUS.register(new ClientChatHandler());
+        // Регистрируем ШЕМ (статичный класс)
+        NeoForge.EVENT_BUS.register(ClientChatHandler.class);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
