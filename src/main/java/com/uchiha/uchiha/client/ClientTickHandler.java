@@ -8,15 +8,14 @@ import com.uchiha.uchiha.magic.PlayerManaData;
 public class ClientTickHandler {
 
     @SubscribeEvent
-    public static void onClientTick(ClientTickEvent.Post event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.player != null && minecraft.level != null && !minecraft.isPaused()) {
-            float current = PlayerManaData.getCurrentMana(minecraft.player);
-            float max = PlayerManaData.getMaxMana(minecraft.player);
+    public static void onTick(ClientTickEvent.Post event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.isPaused()) return;
 
-            if (current < max) {
-                PlayerManaData.setCurrentMana(minecraft.player, current + 0.25f);
-            }
+        float mana = PlayerManaData.getMana(mc.player);
+        float max = PlayerManaData.getMaxMana(mc.player);
+        if (mana < max) {
+            PlayerManaData.setMana(mc.player, mana + 0.25f);
         }
     }
 }
