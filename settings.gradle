@@ -1,10 +1,5 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
+plugins {
+    id("org.gradle.toolchains.llvm-compiler") version "0.1.0"
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
-}
-rootProject.name = 'uchiha'
+rootProject.name = "uchiha-mod"
