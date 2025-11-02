@@ -26,9 +26,11 @@ public class uchiha {
     public uchiha(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(HudEventHandler::registerGuiLayers);
 
-        // КОМАНДА - прямо через lambda
+        // Регистрируем HudEventHandler
+        NeoForge.EVENT_BUS.register(HudEventHandler.class);
+
+        // КОМАНДА
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             event.getDispatcher().register(Commands.literal("uchihamana")
                     .then(Commands.literal("add")
