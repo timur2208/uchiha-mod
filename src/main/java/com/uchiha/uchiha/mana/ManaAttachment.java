@@ -12,7 +12,7 @@ public class ManaAttachment {
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, uchiha.MODID);
 
     public static final Supplier<AttachmentType<ManaData>> MANA = ATTACHMENT_TYPES.register(
-            "mana", () -> AttachmentType.serializable(ManaData::new).build()
+            "mana", () -> AttachmentType.builder(ManaData::new).copyOnDeath().build()
     );
 
     public static ManaData getMana(Player player) {
