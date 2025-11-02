@@ -27,8 +27,8 @@ public class uchiha {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
-        // Регистрируем HUD
-        NeoForge.EVENT_BUS.register(new HudEventHandler());
+        // Регистрируем ШЕМ HudEventHandler (СТАТИЧНЫЕ методы)
+        NeoForge.EVENT_BUS.register(HudEventHandler.class);
 
         // КОМАНДА
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
