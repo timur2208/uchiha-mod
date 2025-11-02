@@ -11,6 +11,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 import com.uchiha.uchiha.client.HudEventHandler;
 import com.uchiha.uchiha.client.ClientTickHandler;
+import com.uchiha.uchiha.client.ClientChatHandler;
 import com.uchiha.uchiha.magic.ManaTickHandler;
 
 @Mod("uchiha")
@@ -32,6 +33,9 @@ public class uchiha {
         NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post event) -> {
             ClientTickHandler.onClientTick(event);
         });
+
+        // Обработчик чата для команд
+        NeoForge.EVENT_BUS.register(new ClientChatHandler());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
